@@ -6,6 +6,7 @@
 
 using namespace std;
 using namespace solver;
+    
 
     double solver::operator==(RealVariable rv, double d){
         return d;
@@ -18,6 +19,9 @@ using namespace solver;
     }
 
     RealVariable solver::operator*(double d, RealVariable rv){
+        return rv;
+    }
+    RealVariable operator*(RealVariable rv, double d){
         return rv;
     }
     RealVariable solver::operator^(RealVariable rv, int i){
@@ -35,7 +39,7 @@ using namespace solver;
     RealVariable solver::operator-(RealVariable rv, double d){
         return rv;
     }
-    double solver::operator-(RealVariable rv, int i){
+    RealVariable solver::operator-(RealVariable rv, int i){
         return 0.0;
     }
     RealVariable solver::operator/(double d, RealVariable rv){
@@ -64,6 +68,16 @@ using namespace solver;
     ComplexVariable solver::operator*(double d, ComplexVariable cv){
         return cv;
     }
+    ComplexVariable operator*(ComplexVariable cv, double d){
+        return cv;
+    }
+    ComplexVariable operator*(ComplexVariable cv, int i){
+        return cv;
+    }
+    ComplexVariable operator*(int i, ComplexVariable cv){
+        return cv;
+    }
+
     ComplexVariable solver::operator^(ComplexVariable cv, int i){
         return cv;
     }
@@ -71,13 +85,17 @@ using namespace solver;
     ComplexVariable solver::operator+(double d, ComplexVariable cv){
         return cv;
     }
+    ComplexVariable operator+(ComplexVariable cv, double d){
+        return cv;
+    }
+
     ComplexVariable solver::operator+(ComplexVariable cv, int i){
         return cv;
     }
     ComplexVariable solver::operator+(ComplexVariable cv1, ComplexVariable cv){
         return cv;
     }
-    double solver::operator+(ComplexVariable cv1, std::complex<double> cv){
+    ComplexVariable solver::operator+(ComplexVariable cv1, std::complex<double> cv){
         return 0.0;
     }
     ComplexVariable solver::operator-(double d, ComplexVariable cv){
@@ -87,7 +105,7 @@ using namespace solver;
         return cv;
     }
 
-    double solver::operator-(ComplexVariable cv, int i){
+    ComplexVariable solver::operator-(ComplexVariable cv, int i){
         return 0.0;
     }
 
@@ -98,7 +116,7 @@ using namespace solver;
         return cv;
     }
 
-    double solver::solve(double d){
+    ComplexVariable solver::solve(double d){
         return d;
     }
     std::complex<double> solver::solve(ComplexVariable y){

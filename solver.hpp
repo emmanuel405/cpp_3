@@ -1,6 +1,6 @@
 #pragma once
 
-
+using namespace std;
 namespace solver{
     
     class RealVariable{
@@ -18,12 +18,17 @@ namespace solver{
     friend double operator==(double d, RealVariable rv);
     friend double operator==(RealVariable rv1, RealVariable rv);
     friend RealVariable operator*(double d, RealVariable rv);
+    friend RealVariable operator*(RealVariable rv, double d);
+
     friend RealVariable operator^(RealVariable rv, int i);
+
     friend RealVariable operator+(RealVariable rv1, RealVariable rv);
     friend RealVariable operator+(RealVariable rv1, double d);
+
     friend RealVariable operator-(RealVariable rv1, RealVariable rv);
     friend RealVariable operator-(RealVariable rv1, double d);
-    friend double operator-(RealVariable rv1, int i);
+    friend RealVariable operator-(RealVariable rv1, int i);
+
     friend RealVariable operator/(double d, RealVariable rv);
     friend RealVariable operator/(RealVariable rv, int i);
 
@@ -41,15 +46,23 @@ namespace solver{
     friend double operator==(ComplexVariable cv, double d);
     friend double operator==(double d, ComplexVariable cv);
     friend double operator==(ComplexVariable cv1, ComplexVariable cv);
+
     friend ComplexVariable operator*(double d, ComplexVariable cv);
+    friend ComplexVariable operator*(ComplexVariable cv, double d);
+    friend ComplexVariable operator*(ComplexVariable cv, int i);
+    friend ComplexVariable operator*(int i, ComplexVariable cv);
+
     friend ComplexVariable operator^(ComplexVariable cv, int i);
+
     friend ComplexVariable operator+(double d, ComplexVariable cv);
-    friend ComplexVariable operator+(ComplexVariable cv, int i);
+    friend ComplexVariable operator+(ComplexVariable cv, double d);
     friend ComplexVariable operator+(ComplexVariable cv1, ComplexVariable cv);
-    friend double operator+(ComplexVariable cv1, std::complex<double> cv);
+    friend ComplexVariable operator+(ComplexVariable cv1, std::complex<double> cv);
+
     friend ComplexVariable operator-(double d, ComplexVariable cv);
     friend ComplexVariable operator-(ComplexVariable cv1, ComplexVariable cv);
-    friend double operator-(ComplexVariable cv, int i);
+    friend ComplexVariable operator-(ComplexVariable cv, int i);
+
     friend ComplexVariable operator/(double d, ComplexVariable cv);
     friend ComplexVariable operator/(ComplexVariable cv, int i);
 
