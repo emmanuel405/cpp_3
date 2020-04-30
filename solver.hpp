@@ -1,5 +1,6 @@
 #pragma once
 
+#include <complex.h>
 using namespace std;
 namespace solver{
     
@@ -43,9 +44,11 @@ namespace solver{
     public:
     ComplexVariable(double re = 0, double im = 0): _re(re), _im(im){}
 
-    friend double operator==(ComplexVariable cv, double d);
-    friend double operator==(double d, ComplexVariable cv);
-    friend double operator==(ComplexVariable cv1, ComplexVariable cv);
+    friend ComplexVariable operator==(ComplexVariable cv, double d);
+    friend ComplexVariable operator==(double d, ComplexVariable cv);
+    friend ComplexVariable operator==(ComplexVariable cv1, complex<double> cv);
+    friend ComplexVariable operator==(ComplexVariable cv1, ComplexVariable cv);
+
 
     friend ComplexVariable operator*(double d, ComplexVariable cv);
     friend ComplexVariable operator*(ComplexVariable cv, double d);
@@ -56,19 +59,23 @@ namespace solver{
 
     friend ComplexVariable operator+(double d, ComplexVariable cv);
     friend ComplexVariable operator+(ComplexVariable cv, double d);
+    friend ComplexVariable operator+(ComplexVariable cv, int i);
     friend ComplexVariable operator+(ComplexVariable cv1, ComplexVariable cv);
-    friend ComplexVariable operator+(ComplexVariable cv1, std::complex<double> cv);
+    friend ComplexVariable operator+(ComplexVariable cv1, complex<double> cv);
 
     friend ComplexVariable operator-(double d, ComplexVariable cv);
     friend ComplexVariable operator-(ComplexVariable cv1, ComplexVariable cv);
     friend ComplexVariable operator-(ComplexVariable cv, int i);
+    friend ComplexVariable operator-(ComplexVariable cv, double d);
+    friend ComplexVariable operator-(ComplexVariable cv1, complex<double> cv);
+
 
     friend ComplexVariable operator/(double d, ComplexVariable cv);
     friend ComplexVariable operator/(ComplexVariable cv, int i);
 
     };
 
-    double solve(double x);
-    std::complex<double> solve(ComplexVariable y);
+    double solve(double d);
+    complex<double> solve(ComplexVariable y);
 
 }
