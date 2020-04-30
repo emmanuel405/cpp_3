@@ -80,11 +80,11 @@ solver::RealVariable x;
 
 TEST_CASE("Integer variable, two results"){
 solver::RealVariable x;
-    CHECK((solve((x^2) == 2) == 1) || (solve((x^2) == 2) == -1));
-    CHECK((solve(3*(x^2) == 12) == 2) || (solve(3*(x^2) == 12) == -2));
-    CHECK((solve((x^2)-53 == 28) == 9) || (solve((x^2)-53 == 28) == -9));
-    CHECK((solve(7*(x^2)-95 == 17) == 4) || (solve(7*(x^2)-95 == 17) == -4));
-    CHECK((solve(5.5*(x^2)-18 == 31.5) == 3) || (solve(5.5*(x^2)-18 == 31.5) == -3));
+    CHECK((solve((x^2) == 2) == 1 || solve((x^2) == 2) == -1));
+    CHECK((solve(3*(x^2) == 12) == 2 || solve(3*(x^2) == 12) == -2));
+    CHECK((solve((x^2)-53 == 28) == 9 || solve((x^2)-53 == 28) == -9));
+    CHECK((solve(7*(x^2)-95 == 17) == 4 || solve(7*(x^2)-95 == 17) == -4));
+    CHECK((solve(5.5*(x^2)-18 == 31.5) == 3 || solve(5.5*(x^2)-18 == 31.5) == -3));
 } // 5
 
 TEST_CASE("Comparing Equations"){
@@ -102,13 +102,13 @@ solver::RealVariable x;
 
 TEST_CASE("simple complex"){
 solver::ComplexVariable y;
-    CHECK((solve((y^2) == 4) == complex<double>(2,0)) || (solve((y^2) == 4) == complex<double>(-2,0)));
+    CHECK((solve((y^2) == 4) == complex<double>(2,0) || solve((y^2) == 4) == complex<double>(-2,0)));
     CHECK(solve((y^3) == 8) == complex<double>(2,0));
     CHECK(solve((y^5) == 32) == complex<double>(2,0));
     CHECK(solve((y^3) == 27) == complex<double>(3,0));
-    CHECK((solve((y^2) == 9) == complex<double>(3,0)) || (solve((y^2) == 9) == complex<double>(-3,0)));
-    CHECK((solve((y^2) == 16) == complex<double>(4,0)) || (solve((y^2) == 16) == complex<double>(-4,0)));
-    CHECK((solve((y^2) == 25) == complex<double>(5,0)) || (solve((y^2) == 25) == complex<double>(-5,0)));
+    CHECK((solve((y^2) == 9) == complex<double>(3,0) || solve((y^2) == 9) == complex<double>(-3,0)));
+    CHECK((solve((y^2) == 16) == complex<double>(4,0) || solve((y^2) == 16) == complex<double>(-4,0)));
+    CHECK((solve((y^2) == 25) == complex<double>(5,0) || solve((y^2) == 25) == complex<double>(-5,0)));
 
     CHECK(solve((y^2) == -1) == complex<double>(0,1));
     CHECK(solve((y^2) == -4) == complex<double>(0,2));
