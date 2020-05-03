@@ -63,17 +63,17 @@ namespace solver{
     public:
         ComplexVariable(double re_pow2, double im_pow2, double re_pow1, double im_pow1, double re, double im ){
             _pow2._re = re_pow2;
-            _pow2.im = im_pow2;
+            _pow2._im = im_pow2;
             _pow1._re = re_pow1;
-            _pow1.im = im_pow1;
+            _pow1._im = im_pow1;
 			_re = re;
 			_im = im;
         }
         ComplexVariable(){
             _pow2._re = 0;
-            _pow2.im = 0;
+            _pow2._im = 0;
             _pow1._re = 0;
-            _pow1.im = 0;
+            _pow1._im = 0;
 			_re = 0;
 			_im = 0;
         }
