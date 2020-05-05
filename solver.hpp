@@ -3,56 +3,58 @@
 #include <complex.h>
 using namespace std;
 namespace solver{
-
+    
     class RealVariable{
-    private:
+    public:
         struct pow2{
             double _coff;
         } _pow2;
-        struct pow1{
+        struct pow1{ 
             double _coff;
         } _pow1;
-        double _coff, _res;
-
-    public:
-        RealVariable(double d_pow2, double d_pow1, double d){
-            _pow2._coff = d_pow2;
-            _pow1._coff = d_pow1;
-            _coff = d;
+        double _coff;
+    
+    
+		RealVariable(double d_pow2, double d_pow1, double d){
+			_pow2._coff = d_pow2;
+			_pow1._coff = d_pow1;
+			_coff = d;
+		}
+		RealVariable(){
+			_pow2._coff = 0;
+			_pow1._coff = 1;
+			_coff = 0;
         }
-        RealVariable(){
-            _pow2._coff = 0;
-            _pow1._coff = 0;
-            _coff = 0;
-        }
+
+        friend RealVariable operator==(RealVariable rv, double d);
+        friend RealVariable operator==(double d, RealVariable rv);
+        friend RealVariable operator==(RealVariable rv, RealVariable rv1);
 
 
-// 2*x+2 == x^2*3-5 / 9
+        friend RealVariable operator*(RealVariable rv, double d);
+        friend RealVariable operator*(double d, RealVariable rv);
 
-        friend double operator==(RealVariable rv, double d);
-        friend double operator==(double d, RealVariable rv);
-        friend double operator==(RealVariable rv, RealVariable rv1);
+        friend RealVariable operator/(RealVariable rv, double d);
+        friend RealVariable operator/(RealVariable rv, int i);
 
-        friend RealVariable& operator*(RealVariable rv, double d);
-        friend RealVariable& operator*(double d, RealVariable rv);
+        friend RealVariable operator+(RealVariable rv, RealVariable rv1);
+        friend RealVariable operator+(RealVariable rv, double d);
+        friend RealVariable operator+(double d, RealVariable rv);
 
-        friend RealVariable& operator/(RealVariable rv, double d);
-        friend RealVariable& operator/(RealVariable rv, int i);
+        friend RealVariable operator-(RealVariable rv, RealVariable rv1);
+        friend RealVariable operator-(RealVariable rv, double d);
+        friend RealVariable operator-(RealVariable rv, int i);
 
-        friend RealVariable& operator+(RealVariable rv, RealVariable rv1);
-        friend RealVariable& operator+(RealVariable rv, double d);
-        friend RealVariable& operator+(double d, RealVariable rv);
+        friend RealVariable operator^(RealVariable rv, const int degree);
 
-        friend RealVariable& operator-(RealVariable rv, RealVariable rv1);
-        friend RealVariable& operator-(RealVariable rv, double d);
-        friend RealVariable& operator-(RealVariable rv, int i);
+        friend double Quadratic_Equation(const RealVariable rv);
 
-        // maybe no?
-        friend RealVariable operator^(RealVariable rv, int i);
 
     };
+    double solve(const RealVariable rv);
+  
 
-    class ComplexVariable{
+ class ComplexVariable{
     private:
         /*
          * changed the class members to be std::complex so it will be more efficient
@@ -121,8 +123,5 @@ namespace solver{
         friend  complex<double> solve(ComplexVariable y);
 
     };
-
-    double solve(RealVariable x);
-
 
 }
