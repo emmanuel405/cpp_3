@@ -56,67 +56,67 @@ namespace solver{
 
     };
 
-    class ComplexVariable{
-    private:
-        struct pow2{
-            double _re, _im;
-        } _pow2;
-        struct pow1{ 
-            double _re, _im;
-        } _pow1;
-        double _re, _im, _res;
+    // class ComplexVariable{
+    // private:
+    //     struct pow2{
+    //         double _re, _im;
+    //     } _pow2;
+    //     struct pow1{ 
+    //         double _re, _im;
+    //     } _pow1;
+    //     double _re, _im, _res;
     
-    public:
-        ComplexVariable(double re_pow2, double im_pow2, double re_pow1, double im_pow1, double re, double im ){
-            _pow2._re = re_pow2;
-            _pow2._im = im_pow2;
-            _pow1._re = re_pow1;
-            _pow1._im = im_pow1;
-			_re = re;
-			_im = im;
-        }
-        ComplexVariable(){
-            _pow2._re = 0;
-            _pow2._im = 0;
-            _pow1._re = 0;
-            _pow1._im = 0;
-			_re = 0;
-			_im = 0;
-        }
+    // public:
+    //     ComplexVariable(double re_pow2, double im_pow2, double re_pow1, double im_pow1, double re, double im ){
+    //         _pow2._re = re_pow2;
+    //         _pow2._im = im_pow2;
+    //         _pow1._re = re_pow1;
+    //         _pow1._im = im_pow1;
+	// 		_re = re;
+	// 		_im = im;
+    //     }
+    //     ComplexVariable(){
+    //         _pow2._re = 0;
+    //         _pow2._im = 0;
+    //         _pow1._re = 0;
+    //         _pow1._im = 0;
+	// 		_re = 0;
+	// 		_im = 0;
+    //     }
 
-        friend ComplexVariable operator==(ComplexVariable cv, double d);
-        friend ComplexVariable operator==(double d, ComplexVariable cv);
-        friend ComplexVariable operator==(ComplexVariable cv1, complex<double> cv);
-        friend ComplexVariable operator==(ComplexVariable cv1, ComplexVariable cv);
-
-
-        friend ComplexVariable& operator*(double d, ComplexVariable cv);
-        friend ComplexVariable& operator*(ComplexVariable cv, double d);
-        friend ComplexVariable& operator*(ComplexVariable cv, int i);
-        friend ComplexVariable& operator*(int i, ComplexVariable cv);
-
-        friend ComplexVariable operator^(ComplexVariable cv, int i);
-
-        friend ComplexVariable& operator+(double d, ComplexVariable cv);
-        friend ComplexVariable& operator+(ComplexVariable cv, double d);
-        friend ComplexVariable& operator+(ComplexVariable cv, int i);
-        friend ComplexVariable& operator+(ComplexVariable cv1, ComplexVariable cv);
-        friend ComplexVariable& operator+(ComplexVariable cv1, complex<double> cv);
-
-        friend ComplexVariable& operator-(double d, ComplexVariable cv);
-        friend ComplexVariable& operator-(ComplexVariable cv1, ComplexVariable cv);
-        friend ComplexVariable& operator-(ComplexVariable cv, int i);
-        friend ComplexVariable& operator-(ComplexVariable cv, double d);
-        friend ComplexVariable& operator-(ComplexVariable cv1, complex<double> cv);
+    //     friend ComplexVariable operator==(ComplexVariable cv, double d);
+    //     friend ComplexVariable operator==(double d, ComplexVariable cv);
+    //     friend ComplexVariable operator==(ComplexVariable cv1, complex<double> cv);
+    //     friend ComplexVariable operator==(ComplexVariable cv1, ComplexVariable cv);
 
 
-        friend ComplexVariable& operator/(double d, ComplexVariable cv);
-        friend ComplexVariable& operator/(ComplexVariable cv, int i);
+    //     friend ComplexVariable& operator*(double d, ComplexVariable cv);
+    //     friend ComplexVariable& operator*(ComplexVariable cv, double d);
+    //     friend ComplexVariable& operator*(ComplexVariable cv, int i);
+    //     friend ComplexVariable& operator*(int i, ComplexVariable cv);
+
+    //     friend ComplexVariable operator^(ComplexVariable cv, int i);
+
+    //     friend ComplexVariable& operator+(double d, ComplexVariable cv);
+    //     friend ComplexVariable& operator+(ComplexVariable cv, double d);
+    //     friend ComplexVariable& operator+(ComplexVariable cv, int i);
+    //     friend ComplexVariable& operator+(ComplexVariable cv1, ComplexVariable cv);
+    //     friend ComplexVariable& operator+(ComplexVariable cv1, complex<double> cv);
+
+    //     friend ComplexVariable& operator-(double d, ComplexVariable cv);
+    //     friend ComplexVariable& operator-(ComplexVariable cv1, ComplexVariable cv);
+    //     friend ComplexVariable& operator-(ComplexVariable cv, int i);
+    //     friend ComplexVariable& operator-(ComplexVariable cv, double d);
+    //     friend ComplexVariable& operator-(ComplexVariable cv1, complex<double> cv);
 
 
-    };
+    //     friend ComplexVariable& operator/(double d, ComplexVariable cv);
+    //     friend ComplexVariable& operator/(ComplexVariable cv, int i);
+
+
+    // };
     
-    complex<double> solve(ComplexVariable y);
+    // complex<double> solve(ComplexVariable y);
     double solve(const RealVariable rv);
 
 

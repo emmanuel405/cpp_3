@@ -41,12 +41,16 @@ using namespace solver;
     // }
 
     RealVariable& solver::operator/(RealVariable& rv, double d){
+        if(d == 0)
+            throw runtime_error("divide by zero");
         rv._pow2._coff /= d;
         rv._pow1._coff /= d;
         rv._coff /= d;
         return rv;
     }
     RealVariable& solver::operator/(RealVariable& rv, int i){
+        if(i == 0)
+            throw runtime_error("divide by zero");
         rv._pow2._coff /= i;
         rv._pow1._coff /= i;
         rv._coff /= i;
@@ -83,25 +87,34 @@ using namespace solver;
         return rv;
     }
 
+    
     RealVariable& solver::operator^(RealVariable& rv, const int degree){
         switch (degree){
         case 0:
             rv._pow2._coff = rv._pow1._coff = 0;
             rv._coff = 1;
             break;
+        
         case 1:
             ;
             break;
         
         case 2:
-            if(rv._pow2._coff != 0 || rv._pow1._coff != 0)
-                throw runtime_error("The degrre should be less than or equal to 2");
+            if(rv._pow2._coff != 0)
+                throw runtime_error("The degree should be: 0 <= degree <= 2");
             else
-                rv._coff *= rv._coff;
+                if(rv._pow1._coff == 0)
+                    rv._coff *= rv._coff;
+                else{
+                    rv._pow2._coff = rv._pow1._coff * rv._pow1._coff;
+                    rv._pow1._coff = 2 * rv._pow1._coff * rv._coff;
+                    rv._coff *= rv._coff;
+                }
+
             break;
 
         default:
-            throw runtime_error("The degree should be less than or equal to 2");
+            throw runtime_error("The degree should be: 0 <= degree <= 2");
             break;
         }
         return rv;
@@ -114,94 +127,116 @@ using namespace solver;
     ///////////////////////////////////////
 
 
-    ComplexVariable solver::operator==(ComplexVariable cv, double d){
-        return cv;
-    }
+    // ComplexVariable solver::operator==(ComplexVariable cv, double d){
+    //     return cv;
+    // }
 
-    ComplexVariable solver::operator==(double d, ComplexVariable cv){
-        return cv;
-    }
+    // ComplexVariable solver::operator==(double d, ComplexVariable cv){
+    //     return cv;
+    // }
 
-    ComplexVariable solver::operator==(ComplexVariable cv1, complex<double> cv){
-        return cv1;
-    }
-    ComplexVariable solver::operator==(ComplexVariable cv1, ComplexVariable cv){
-        return cv1;
-    }
+    // ComplexVariable solver::operator==(ComplexVariable cv1, complex<double> cv){
+    //     return cv1;
+    // }
+    // ComplexVariable solver::operator==(ComplexVariable cv1, ComplexVariable cv){
+    //     return cv1;
+    // }
 
-    ComplexVariable& solver::operator*(double d, ComplexVariable cv){
-        return cv;
-    }
-    ComplexVariable& solver::operator*(ComplexVariable cv, double d){
-        return cv;
-    }
-    ComplexVariable& solver::operator*(ComplexVariable cv, int i){
-        return cv;
-    }
-    ComplexVariable& solver::operator*(int i, ComplexVariable cv){
-        return cv;
-    }
+    // ComplexVariable& solver::operator*(double d, ComplexVariable cv){
+    //     return cv;
+    // }
+    // ComplexVariable& solver::operator*(ComplexVariable cv, double d){
+    //     return cv;
+    // }
+    // ComplexVariable& solver::operator*(ComplexVariable cv, int i){
+    //     return cv;
+    // }
+    // ComplexVariable& solver::operator*(int i, ComplexVariable cv){
+    //     return cv;
+    // }
     
-    ComplexVariable& solver::operator+(double d, ComplexVariable cv){
-        return cv;
-    }
-    ComplexVariable& solver::operator+(ComplexVariable cv, double d){
-        return cv;
-    }
+    // ComplexVariable& solver::operator+(double d, ComplexVariable cv){
+    //     return cv;
+    // }
+    // ComplexVariable& solver::operator+(ComplexVariable cv, double d){
+    //     return cv;
+    // }
 
-    ComplexVariable& solver::operator+(ComplexVariable cv, int i){
-        return cv;
-    }
-    ComplexVariable& solver::operator+(ComplexVariable cv1, ComplexVariable cv){
-        return cv;
-    }
-    ComplexVariable& solver::operator+(ComplexVariable cv1, complex<double> cv){
-        return cv1;
-    }
-    ComplexVariable& solver::operator-(double d, ComplexVariable cv){
-        return cv;
-    }
-    ComplexVariable& solver::operator-(ComplexVariable cv1, ComplexVariable cv){
-        return cv;
-    }
+    // ComplexVariable& solver::operator+(ComplexVariable cv, int i){
+    //     return cv;
+    // }
+    // ComplexVariable& solver::operator+(ComplexVariable cv1, ComplexVariable cv){
+    //     return cv;
+    // }
+    // ComplexVariable& solver::operator+(ComplexVariable cv1, complex<double> cv){
+    //     return cv1;
+    // }
+    // ComplexVariable& solver::operator-(double d, ComplexVariable cv){
+    //     return cv;
+    // }
+    // ComplexVariable& solver::operator-(ComplexVariable cv1, ComplexVariable cv){
+    //     return cv;
+    // }
 
-    ComplexVariable& solver::operator-(ComplexVariable cv, int i){
-        return cv;
-    }
-    ComplexVariable& solver::operator-(ComplexVariable cv, double d){
-        return cv;
-    }
-    ComplexVariable& solver::operator-(ComplexVariable cv1, complex<double> cv){
-        return cv1;
-    }
+    // ComplexVariable& solver::operator-(ComplexVariable cv, int i){
+    //     return cv;
+    // }
+    // ComplexVariable& solver::operator-(ComplexVariable cv, double d){
+    //     return cv;
+    // }
+    // ComplexVariable& solver::operator-(ComplexVariable cv1, complex<double> cv){
+    //     return cv1;
+    // }
 
-    ComplexVariable& solver::operator/(double d, ComplexVariable cv){
-        return cv;
-    }
-    ComplexVariable& solver::operator/(ComplexVariable cv, int i){
-        return cv;
-    }
+    // ComplexVariable& solver::operator/(double d, ComplexVariable cv){
+    //     return cv;
+    // }
+    // ComplexVariable& solver::operator/(ComplexVariable cv, int i){
+    //     return cv;
+    // }
 
-    ComplexVariable solver::operator^(ComplexVariable cv, int i){
-        return cv;
-    }
+    // ComplexVariable solver::operator^(ComplexVariable cv, int i){
+    //     return cv;
+    // }
+    // complex<double> solver::solve(ComplexVariable y){
+    //     complex<double> d;
+    //     return d;
+    // }
 
+    /**
+     * 3x-6 == 6
+     * x^2+3x-6 == 0
+     * x^2-6 == 0
+     * x^2+3x == 0
+     */
     double solver::solve(const RealVariable rv){
         double ans = 0;
+        cout << "the exescise:\n" << rv._pow2._coff << "x^2 + " << rv._pow1._coff << "x + " << rv._coff << endl;
         if(rv._pow2._coff == 0){
-            ans = -1*(rv._coff);
-            ans = ans / rv._pow1._coff;
+            if(rv._pow1._coff == 0){
+                if(rv._coff == 0)
+                    return 0.0;
+                else 
+                    throw runtime_error("There is no solution");
+            }
+            else{
+                ans = -1*(rv._coff);
+                ans = ans / rv._pow1._coff;
+            }
         }
-        else
-            ans = Quadratic_Equation(rv);
+        else{
+            if(rv._pow1._coff == 0){
+                ans = -1*(rv._coff);
+                ans = ans / rv._pow2._coff;
+                ans = sqrt(ans);
+            }
+            else
+                ans = Quadratic_Equation(rv);
+        }
+            
         return ans;
     }
     
-    complex<double> solver::solve(ComplexVariable y){
-        complex<double> d;
-        return d;
-    }
-
 
 /**
  * @param RealVariable rv
