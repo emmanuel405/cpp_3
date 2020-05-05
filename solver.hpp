@@ -5,16 +5,16 @@ using namespace std;
 namespace solver{
     
     class RealVariable{
-    private:
+    public:
         struct pow2{
             double _coff;
         } _pow2;
         struct pow1{ 
             double _coff;
         } _pow1;
-        double _coff, _res;
+        double _coff;
     
-    public:
+    
 		RealVariable(double d_pow2, double d_pow1, double d){
 			_pow2._coff = d_pow2;
 			_pow1._coff = d_pow1;
@@ -22,33 +22,37 @@ namespace solver{
 		}
 		RealVariable(){
 			_pow2._coff = 0;
-			_pow1._coff = 0;
+			_pow1._coff = 1;
 			_coff = 0;
 		}
 
 
 // 2*x+2 == x^2*3-5 / 9
 
-        friend double operator==(RealVariable rv, double d);
-        friend double operator==(double d, RealVariable rv);
-        friend double operator==(RealVariable rv, RealVariable rv1);
+        friend RealVariable& operator==(RealVariable& rv, double d);
+        friend RealVariable& operator==(double d, RealVariable& rv);
+        friend RealVariable& operator==(RealVariable& rv, RealVariable& rv1);
 
-        friend RealVariable& operator*(RealVariable rv, double d);
-        friend RealVariable& operator*(double d, RealVariable rv);
+        friend RealVariable& operator*(RealVariable& rv, double d);
+        friend RealVariable& operator*(double d, RealVariable& rv);
+        // friend RealVariable& operator*(RealVariable& rv, RealVariable& rv1);
 
-        friend RealVariable& operator/(RealVariable rv, double d);
-        friend RealVariable& operator/(RealVariable rv, int i);
 
-        friend RealVariable& operator+(RealVariable rv, RealVariable rv1);
-        friend RealVariable& operator+(RealVariable rv, double d);
-        friend RealVariable& operator+(double d, RealVariable rv);
+        friend RealVariable& operator/(RealVariable& rv, double d);
+        friend RealVariable& operator/(RealVariable& rv, int i);
 
-        friend RealVariable& operator-(RealVariable rv, RealVariable rv1);
-        friend RealVariable& operator-(RealVariable rv, double d);
-        friend RealVariable& operator-(RealVariable rv, int i);
+        friend RealVariable& operator+(RealVariable& rv, RealVariable& rv1);
+        friend RealVariable& operator+(RealVariable& rv, double d);
+        friend RealVariable& operator+(double d, RealVariable& rv);
 
-        // maybe no?
-        friend RealVariable operator^(RealVariable rv, int i);
+        friend RealVariable& operator-(RealVariable& rv, RealVariable& rv1);
+        friend RealVariable& operator-(RealVariable& rv, double d);
+        friend RealVariable& operator-(RealVariable& rv, int i);
+
+        friend RealVariable& operator^(RealVariable& rv, const int degree);
+
+        friend double Quadratic_Equation(const RealVariable rv);
+
 
     };
 
@@ -109,9 +113,12 @@ namespace solver{
         friend ComplexVariable& operator/(double d, ComplexVariable cv);
         friend ComplexVariable& operator/(ComplexVariable cv, int i);
 
-    };
 
-    double solve(double d);
+    };
+    
     complex<double> solve(ComplexVariable y);
+    double solve(const RealVariable rv);
+
+
 
 }
