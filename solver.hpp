@@ -24,32 +24,33 @@ namespace solver{
 			_pow2._coff = 0;
 			_pow1._coff = 1;
 			_coff = 0;
-		}
+        }
 
 
 // 2*x+2 == x^2*3-5 / 9
 
-        friend RealVariable& operator==(RealVariable& rv, double d);
-        friend RealVariable& operator==(double d, RealVariable& rv);
-        friend RealVariable& operator==(RealVariable& rv, RealVariable& rv1);
+        friend RealVariable operator==(RealVariable rv, double d);
+        friend RealVariable operator==(double d, RealVariable rv);
+        friend RealVariable operator==(RealVariable rv, RealVariable rv1);
 
-        friend RealVariable& operator*(RealVariable& rv, double d);
-        friend RealVariable& operator*(double d, RealVariable& rv);
+
+        friend RealVariable operator*(RealVariable rv, double d);
+        friend RealVariable operator*(double d, RealVariable rv);
         // friend RealVariable& operator*(RealVariable& rv, RealVariable& rv1);
 
 
-        friend RealVariable& operator/(RealVariable& rv, double d);
-        friend RealVariable& operator/(RealVariable& rv, int i);
+        friend RealVariable operator/(RealVariable rv, double d);
+        friend RealVariable operator/(RealVariable rv, int i);
 
-        friend RealVariable& operator+(RealVariable& rv, RealVariable& rv1);
-        friend RealVariable& operator+(RealVariable& rv, double d);
-        friend RealVariable& operator+(double d, RealVariable& rv);
+        friend RealVariable operator+(RealVariable rv, RealVariable rv1);
+        friend RealVariable operator+(RealVariable rv, double d);
+        friend RealVariable operator+(double d, RealVariable rv);
 
-        friend RealVariable& operator-(RealVariable& rv, RealVariable& rv1);
-        friend RealVariable& operator-(RealVariable& rv, double d);
-        friend RealVariable& operator-(RealVariable& rv, int i);
+        friend RealVariable operator-(RealVariable rv, RealVariable rv1);
+        friend RealVariable operator-(RealVariable rv, double d);
+        friend RealVariable operator-(RealVariable rv, int i);
 
-        friend RealVariable& operator^(RealVariable& rv, const int degree);
+        friend RealVariable operator^(RealVariable rv, const int degree);
 
         friend double Quadratic_Equation(const RealVariable rv);
 
