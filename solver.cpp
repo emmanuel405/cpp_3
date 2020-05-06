@@ -2,195 +2,183 @@
 #include <iostream>
 #include <complex.h>
 #include <math.h>
-#include <vector>
 
 #include "solver.hpp"
 
 using namespace std;
 using namespace solver;
 
-//////////////////////////////////////
-//////////// RealVariable ////////////
-//////////////////////////////////////
+    //////////////////////////////////////
+    //////////// RealVariable ////////////
+    //////////////////////////////////////
 
-RealVariable solver::operator==(RealVariable rv, double d){
-    return operator-(rv,d);
-}
-RealVariable solver::operator==(double d, RealVariable rv){
-    return operator==(rv,d);
-}
-RealVariable solver::operator==(RealVariable rv, RealVariable rv1){
-    return operator-(rv, rv1);
-}
+    RealVariable solver::operator==(RealVariable rv, double d){
+        return operator-(rv,d);
+    }
+    RealVariable solver::operator==(double d, RealVariable rv){
+        return operator==(rv,d);
+    }
+    RealVariable solver::operator==(RealVariable rv, RealVariable rv1){
+        return operator-(rv, rv1);
+    }
 
-RealVariable solver::operator*(RealVariable rv, const double d){
-    // Real1 = rv._pow2._coff; Real2 = rv._pow1._coff; Real3 = rv._coff;
-    // RealVariable newRv(Real1,Real2,Real3);
-    RealVariable newRv(rv); // copy
-    newRv._pow2._coff *= d;
-    newRv._pow1._coff *= d;
-    newRv._coff *= d;
+    RealVariable solver::operator*(RealVariable rv, const double d){
+        RealVariable newRv(rv); // copy
+        newRv._pow2._coff *= d;
+        newRv._pow1._coff *= d;
+        newRv._coff *= d;
+  
+        return newRv;
+    }
+    RealVariable solver::operator*(const double d, RealVariable rv){
+        return operator*(rv, d);
+    }
+    RealVariable solver::operator*(RealVariable rv, const int i){
+        RealVariable newRv(rv); // copy
+        newRv._pow2._coff *= i;
+        newRv._pow1._coff *= i;
+        newRv._coff *= i;
+  
+        return newRv;
+    }
+    RealVariable solver::operator*(const int i, RealVariable rv){
+        return operator*(rv, i);
+    }
 
-    return newRv;
-}
-RealVariable solver::operator*(const double d, RealVariable rv){
-    return operator*(rv, d);
-}
-RealVariable solver::operator*(RealVariable rv, const int i){
-// Real1 = rv._pow2._coff; Real2 = rv._pow1._coff; Real3 = rv._coff;
-    // RealVariable newRv(Real1,Real2,Real3);
-    RealVariable newRv(rv); // copy
-    newRv._pow2._coff *= i;
-    newRv._pow1._coff *= i;
-    newRv._coff *= i;
+    RealVariable solver::operator/(RealVariable rv, const double d){ 
+        if(d == 0)
+            throw runtime_error("divide by zero");
 
-    return newRv;
-}
-RealVariable solver::operator*(const int i, RealVariable rv){
-    return operator*(rv, i);
-}
+        RealVariable newRv(rv); // copy
+        newRv._pow2._coff /= d;
+        newRv._pow1._coff /= d;
+        newRv._coff /= d;
+        return newRv;
+    }
+    RealVariable solver::operator/(RealVariable rv, const int i){
+        if(i == 0)
+            throw runtime_error("divide by zero");
 
-RealVariable solver::operator/(RealVariable rv, const double d){
-    if(d == 0)
-        throw runtime_error("divide by zero");
-// Real1 = rv._pow2._coff; Real2 = rv._pow1._coff; Real3 = rv._coff;
-    // RealVariable newRv(Real1,Real2,Real3);
-    RealVariable newRv(rv); // copy
-    newRv._pow2._coff /= d;
-    newRv._pow1._coff /= d;
-    newRv._coff /= d;
-    return newRv;
-}
-RealVariable solver::operator/(RealVariable rv, const int i){
-    if(i == 0)
-        throw runtime_error("divide by zero");
+        RealVariable newRv(rv); // copy
+        newRv._pow2._coff /= i;
+        newRv._pow1._coff /= i;
+        newRv._coff /= i;
+        return newRv;
+    }
 
-// Real1 = rv._pow2._coff; Real2 = rv._pow1._coff; Real3 = rv._coff;
-    // RealVariable newRv(Real1,Real2,Real3);
-    RealVariable newRv(rv); // copy
-    newRv._pow2._coff /= i;
-    newRv._pow1._coff /= i;
-    newRv._coff /= i;
-    return newRv;
-}
+    RealVariable solver::operator+(RealVariable rv, const RealVariable rv1){
+        RealVariable newRv(rv); // copy
+        newRv._pow2._coff += rv1._pow2._coff;
+        newRv._pow1._coff += rv1._pow1._coff;
+        newRv._coff += rv1._coff;
 
-RealVariable solver::operator+(RealVariable rv, const RealVariable rv1){
-// Real1 = rv._pow2._coff; Real2 = rv._pow1._coff; Real3 = rv._coff;
-    // RealVariable newRv(Real1,Real2,Real3);
-    RealVariable newRv(rv); // copy
-    newRv._pow2._coff += rv1._pow2._coff;
-    newRv._pow1._coff += rv1._pow1._coff;
-    newRv._coff += rv1._coff;
+        return newRv;
+    }
+    RealVariable solver::operator+(RealVariable rv, const double d){
+        rv._coff += d;
+        return rv;
+    }
+    RealVariable solver::operator+(const double d, RealVariable rv){
+        rv._coff += d;
+        return rv;
+    }
 
-    return newRv;
-}
-RealVariable solver::operator+(RealVariable rv, const double d){
-    rv._coff += d;
-    return rv;
-}
-RealVariable solver::operator+(const double d, RealVariable rv){
-    rv._coff += d;
-    return rv;
-}
+    RealVariable solver::operator-(RealVariable rv, const RealVariable rv1){
+        RealVariable newRv(rv); // copy
+        newRv._pow2._coff -= rv1._pow2._coff;
+        newRv._pow1._coff -= rv1._pow1._coff;
+        newRv._coff -= rv1._coff;
 
-RealVariable solver::operator-(RealVariable rv, const RealVariable rv1){
-// Real1 = rv._pow2._coff; Real2 = rv._pow1._coff; Real3 = rv._coff;
-    // RealVariable newRv(Real1,Real2,Real3);
-    RealVariable newRv(rv); // copy
-    newRv._pow2._coff -= rv1._pow2._coff;
-    newRv._pow1._coff -= rv1._pow1._coff;
-    newRv._coff -= rv1._coff;
+        return newRv;
+        
+    }
+    RealVariable solver::operator-(RealVariable rv, const double d){
+        rv._coff -= d;
+        return rv;
+    }
+    RealVariable solver::operator-(const double d, RealVariable rv){
+        return operator-(rv, d);
+    }
+    RealVariable solver::operator-(RealVariable rv, const int i){
+        rv._coff -= i;
+        return rv;
+    }
+    RealVariable solver::operator-(const int i, RealVariable rv){
+        return operator-(rv, i);
+    }
 
-    return newRv;
-
-}
-RealVariable solver::operator-(RealVariable rv, const double d){
-    rv._coff -= d;
-    return rv;
-}
-RealVariable solver::operator-(const double d, RealVariable rv){
-    return operator-(rv, d);
-}
-RealVariable solver::operator-(RealVariable rv, const int i){
-    rv._coff -= i;
-    return rv;
-}
-RealVariable solver::operator-(const int i, RealVariable rv){
-    return operator-(rv, i);
-}
-
-RealVariable solver::operator^(RealVariable rv, const int degree){
-// Real1 = rv._pow2._coff; Real2 = rv._pow1._coff; Real3 = rv._coff;
-    // RealVariable newRv(Real1,Real2,Real3);
-    RealVariable newRv(rv); // copy
-    switch (degree){
+    RealVariable solver::operator^(RealVariable rv, const int degree){
+        RealVariable newRv(rv); // copy
+        switch (degree){
         case 0:
             newRv._pow2._coff = newRv._pow1._coff = 0;
             newRv._coff = 1;
             break;
-
+        
         case 1:
             ;
             break;
-
+        
         case 2:
             if(newRv._pow2._coff != 0)
                 throw runtime_error("The degree should be: 0 <= degree <= 2");
             else
-            if(newRv._pow1._coff == 0)
-                newRv._coff *= newRv._coff;
-            else{
-                newRv._pow2._coff = newRv._pow1._coff * newRv._pow1._coff;
-                newRv._pow1._coff = 2 * newRv._pow1._coff * newRv._coff;
-                newRv._coff *= newRv._coff;
-
-            }
+                if(newRv._pow1._coff == 0)
+                    newRv._coff *= newRv._coff;
+                else{
+                    newRv._pow2._coff = newRv._pow1._coff * newRv._pow1._coff;
+                    newRv._pow1._coff = 2 * newRv._pow1._coff * newRv._coff;
+                    newRv._coff *= newRv._coff;
+                    
+                }
             break;
 
         default:
             throw runtime_error("The degree should be: 0 <= degree <= 2");
             break;
+        }
+        return newRv;
     }
-    return newRv;
-}
 
-/**
- * 3x-6 == 6
- * x^2+3x-6 == 0
- * x^2-6 == 0
- * x^2+3x == 0
- */
-double solver::solve(const RealVariable x){
-    double ans = 0;
-    if(x._pow2._coff == 0){
-        if(x._pow1._coff == 0){
-            if(x._coff == 0)
-                return 0.0;
-            else
-                throw runtime_error("There is no solution");
+    /**
+     * 3x-6 == 6
+     * x^2+3x-6 == 0
+     * x^2-6 == 0
+     * x^2+3x == 0
+     */
+    double solver::solve(const RealVariable x){
+        double ans = 0;
+        if(x._pow2._coff == 0){
+            if(x._pow1._coff == 0){
+                if(x._coff == 0)
+                    return 0.0;
+                else 
+                    throw runtime_error("There is no solution");
+            }
+            else{
+                ans = -1*(x._coff);
+                ans = ans / x._pow1._coff;
+            }
         }
         else{
-            ans = -1*(x._coff);
-            ans = ans / x._pow1._coff;
+            if(x._pow1._coff == 0){
+                if(x._coff > 0)
+                    throw runtime_error("There is no solution");
+                ans = -1*(x._coff);
+                ans = ans / x._pow2._coff;
+                ans = sqrt(ans);
+            }
+            else
+                ans = Quadratic_Equation(x);
         }
+        return ans;
     }
-    else{
-        if(x._pow1._coff == 0){
-            ans = -1*(x._coff);
-            ans = ans / x._pow2._coff;
-            ans = sqrt(ans);
-        }
-        else
-            ans = Quadratic_Equation(x);
-    }
-    return ans;
-}
 
 /**
  * @param RealVariable rv
- *
+ * 
  * result of < a*x^2 + b*x + c = 0 >
- *
+ * 
  * @result x1
  */
 double solver::Quadratic_Equation(RealVariable rv){
@@ -209,7 +197,6 @@ double solver::Quadratic_Equation(RealVariable rv){
     else
         throw runtime_error("Error! Delta is smaller than 0...\n");
 }
-
 
 ///////////////////////////////////////
 /////////// ComplexVariable ///////////
