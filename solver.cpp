@@ -12,7 +12,7 @@ using namespace solver;
     //////////// RealVariable ////////////
     //////////////////////////////////////
 
-    RealVariable solver::operator==(RealVariable rv, double d){
+  RealVariable solver::operator==(RealVariable rv, double d){
         return operator-(rv,d);
     }
     RealVariable solver::operator==(double d, RealVariable rv){
@@ -196,7 +196,7 @@ double solver::Quadratic_Equation(RealVariable rv){
     }
     else
         throw runtime_error("Error! Delta is smaller than 0...\n");
-}
+    }
 
 ///////////////////////////////////////
 /////////// ComplexVariable ///////////
